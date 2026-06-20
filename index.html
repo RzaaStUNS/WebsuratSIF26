@@ -1,3 +1,8 @@
+Untuk menambahkan logo pada tab browser (biasa disebut *favicon*), kamu hanya perlu menambahkan tag `<link rel="icon" ...>` di dalam bagian `<head>` pada HTML kamu.
+
+Berikut adalah kode HTML yang sudah diperbarui dengan tambahan favicon dari link gambar yang kamu berikan:
+
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -5,13 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Request Surat</title>
     
-    <!-- Tailwind CSS CDN -->
+    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/736x/25/46/97/2546974a6556b5579978d0ae4bf39bf0.jpg">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Custom Tailwind Config & CSS -->
     <script>
         tailwind.config = {
             theme: {
@@ -49,7 +53,6 @@
 
     <div class="max-w-3xl mx-auto animate-fade-in pb-10">
         
-        <!-- HEADER -->
         <div class="text-center mb-8 pt-4">
             <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600 mb-3 flex items-center justify-center gap-3">
                 Form Request Surat SIF 2026 <span class="text-3xl">📝</span>
@@ -59,18 +62,12 @@
             </p>
         </div>
 
-        <!-- MAIN CARD -->
         <div class="glass-card overflow-hidden shadow-2xl rounded-3xl relative">
-            <!-- Top Gradient Bar -->
             <div class="h-2 w-full bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 absolute top-0 left-0"></div>
 
-            <!-- ============================== -->
-            <!-- SCREEN 1: FORM INPUT -->
-            <!-- ============================== -->
             <div id="formScreen" class="p-6 md:p-8 pt-10">
                 <form id="requestForm" class="space-y-8">
                     
-                    <!-- SECTION 1: DATA DIRI -->
                     <div class="space-y-4">
                         <h3 class="text-lg font-bold text-pink-500 flex items-center gap-2 border-b border-pink-100 pb-2">
                             <i data-lucide="user" class="w-5 h-5"></i> Data Diri
@@ -89,7 +86,6 @@
                         </div>
                     </div>
 
-                    <!-- SECTION 2: DETAIL SURAT -->
                     <div class="space-y-4">
                         <h3 class="text-lg font-bold text-purple-500 flex items-center gap-2 border-b border-purple-100 pb-2">
                             <i data-lucide="file-text" class="w-5 h-5"></i> Detail Surat
@@ -98,7 +94,6 @@
                         <div class="space-y-2">
                             <label class="text-xs font-bold text-gray-500 uppercase ml-1">Mau request apa nih? <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                <!-- Radio 1 -->
                                 <label class="cursor-pointer">
                                     <input type="radio" name="jenisRequest" value="No. Surat/Sertifikat/Undangan" required class="peer hidden">
                                     <div class="flex items-center gap-3 border border-gray-200 bg-white p-3.5 rounded-xl peer-checked:bg-purple-50 peer-checked:border-purple-400 peer-checked:ring-1 peer-checked:ring-purple-200 transition-all">
@@ -108,7 +103,6 @@
                                         <span class="text-sm font-medium text-gray-700 leading-snug">No. Surat/Sertifikat/Undangan</span>
                                     </div>
                                 </label>
-                                <!-- Radio 2 -->
                                 <label class="cursor-pointer">
                                     <input type="radio" name="jenisRequest" value="No. Surat beserta isi Surat/Sertifikat/Undangan" required class="peer hidden">
                                     <div class="flex items-center gap-3 border border-gray-200 bg-white p-3.5 rounded-xl peer-checked:bg-purple-50 peer-checked:border-purple-400 peer-checked:ring-1 peer-checked:ring-purple-200 transition-all">
@@ -120,7 +114,6 @@
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-5">
-                            <!-- Bidang -->
                             <div class="space-y-1.5">
                                 <label class="text-xs font-bold text-gray-500 uppercase ml-1">Proker Bidang Apa? <span class="text-red-500">*</span></label>
                                 <select id="bidang" required class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all appearance-none cursor-pointer">
@@ -136,7 +129,6 @@
                                 </select>
                             </div>
 
-                            <!-- Perihal -->
                             <div class="space-y-1.5">
                                 <label class="text-xs font-bold text-gray-500 uppercase ml-1">Perihal / Isi <span class="text-red-500">*</span></label>
                                 <select id="perihal" required class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all appearance-none cursor-pointer">
@@ -150,7 +142,6 @@
                             </div>
                         </div>
 
-                        <!-- INPUT DINAMIS LOKASI (Tersembunyi by default) -->
                         <div id="lokasiWrapper" class="space-y-1.5 hidden animate-slide-down">
                             <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
                                 <i data-lucide="map-pin" class="w-4 h-4"></i> Nama Tempat/Ruangan <span class="text-red-500">*</span>
@@ -173,7 +164,6 @@
                         </div>
                     </div>
 
-                    <!-- SECTION 3: WAKTU -->
                     <div class="space-y-4">
                         <h3 class="text-lg font-bold text-blue-500 flex items-center gap-2 border-b border-blue-100 pb-2">
                             <i data-lucide="calendar" class="w-5 h-5"></i> Waktu Penting
@@ -192,7 +182,6 @@
                         </div>
                     </div>
 
-                    <!-- BUTTON SUBMIT -->
                     <div class="pt-4">
                         <button type="submit" id="submitBtn" class="w-full h-14 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 rounded-2xl shadow-lg shadow-purple-200 text-white font-bold text-lg transition-transform active:scale-95 flex items-center justify-center gap-2">
                             <i data-lucide="send" id="btnIcon" class="w-5 h-5"></i> 
@@ -203,9 +192,6 @@
                 </form>
             </div>
 
-            <!-- ============================== -->
-            <!-- SCREEN 2: SUCCESS & WA -->
-            <!-- ============================== -->
             <div id="successScreen" class="hidden p-10 flex flex-col items-center text-center animate-fade-in py-16">
                 <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mb-6 shadow-sm">
                     <i data-lucide="check-circle-2" class="text-green-600 w-12 h-12"></i>
@@ -232,7 +218,6 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT -->
     <script>
         // Initialize Icons
         lucide.createIcons();
@@ -382,3 +367,5 @@ dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
     </script>
 </body>
 </html>
+
+```
