@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -29,14 +30,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* Glassmorphism custom styling */
         .glass-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        /* Hide scrollbar for a cleaner look */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
@@ -108,17 +107,15 @@
 
                         <div class="grid md:grid-cols-2 gap-5">
                             <div class="space-y-1.5">
-                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">Proker Bidang Apa? <span class="text-red-500">*</span></label>
-                                <select id="bidang" required class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all appearance-none cursor-pointer">
-                                    <option value="" disabled selected>Pilih Bidang...</option>
-                                    <option value="Ketua">Ketua</option>
-                                    <option value="Wakil Ketua">Wakil Ketua</option>
-                                    <option value="Sekbend">Sekbend</option>
-                                    <option value="POK">POK</option>
-                                    <option value="Mawa">Mawa</option>
-                                    <option value="Jaringan">Jaringan</option>
-                                    <option value="Litbang">Litbang</option>
-                                    <option value="Umum (External EM)">Umum (External EM)</option>
+                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">Dari Divisi Apa? <span class="text-red-500">*</span></label>
+                                <select id="divisi" required class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all appearance-none cursor-pointer">
+                                    <option value="" disabled selected>Pilih Divisi...</option>
+                                    <option value="Proposal SV, LPJ, dan Absensi">Proposal SV, LPJ, dan Absensi</option>
+                                    <option value="PDD dan Pubkon">PDD dan Pubkon</option>
+                                    <option value="Acara dan Danus Bazar">Acara dan Danus Bazar</option>
+                                    <option value="Sponsorship dan Konsumsi">Sponsorship dan Konsumsi</option>
+                                    <option value="Bendahara dan Humas Perizinan">Bendahara dan Humas Perizinan</option>
+                                    <option value="Keamanan dan Perlengkapan">Keamanan dan Perlengkapan</option>
                                 </select>
                             </div>
 
@@ -191,16 +188,12 @@
                 </div>
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Request Berhasil Disimpan! 🎉</h2>
                 <p class="text-gray-600 max-w-md mb-8">
-                    Data kamu sudah masuk ke sistem. Silakan <strong>klik salah satu CP</strong> di bawah untuk konfirmasi via WhatsApp.
+                    Data kamu sudah masuk ke sistem. Silakan <strong>klik tombol di bawah</strong> untuk konfirmasi ke PIC Divisimu via WhatsApp.
                 </p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg mb-8">
-                    <button onclick="sendWA('Abimanyu', '6282133751840')" class="h-14 bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 rounded-2xl shadow-lg shadow-green-100 text-lg font-bold text-white transition-transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                        <i data-lucide="message-circle" class="w-5 h-5"></i> Chat Abimanyu
-                    </button>
-                    <button onclick="sendWA('Aldifa', '6285720243561')" class="h-14 bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 rounded-2xl shadow-lg shadow-green-100 text-lg font-bold text-white transition-transform hover:scale-[1.02] flex items-center justify-center gap-2">
-                        <i data-lucide="message-circle" class="w-5 h-5"></i> Chat Aldifa
-                    </button>
+                <!-- Container untuk tombol WA dinamis -->
+                <div id="cpContainer" class="w-full max-w-sm mb-8 flex justify-center">
+                    <!-- Tombol akan di-inject pakai JavaScript -->
                 </div>
 
                 <button onclick="resetForm()" class="text-gray-500 hover:text-pink-500 font-medium transition-colors hover:underline">
@@ -212,10 +205,8 @@
     </div>
 
     <script>
-        // Initialize Icons
         lucide.createIcons();
 
-        // Elements
         const formScreen = document.getElementById('formScreen');
         const successScreen = document.getElementById('successScreen');
         const requestForm = document.getElementById('requestForm');
@@ -225,11 +216,45 @@
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const btnIcon = document.getElementById('btnIcon');
+        const cpContainer = document.getElementById('cpContainer');
 
-        // Global Object untuk simpan data sementara (buat WA)
         let savedData = {};
 
-        // Custom Radio styling logic for SVG checked state
+        // KONFIGURASI ROUTING PER DIVISI
+        // Silakan ganti URL SCRIPT dan NOMOR WA di bawah ini nanti
+        const PIC_CONFIG = {
+            "Proposal SV, LPJ, dan Absensi": {
+                namaPIC: "Abimanyu",
+                nomorWA: "6282133751840",
+                scriptUrl: "https://script.google.com/macros/s/AKfycby79z_6DsygEsGKZxh7oUUql9X2XkgFs3c59ID_A4uk4ojQMKNnt98NsEXDYVNczXj4/exec"
+            },
+            "PDD dan Pubkon": {
+                namaPIC: "Nabhan",
+                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_NABHAN"
+            },
+            "Acara dan Danus Bazar": {
+                namaPIC: "Andin",
+                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ANDIN"
+            },
+            "Sponsorship dan Konsumsi": {
+                namaPIC: "Alya",
+                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ALYA"
+            },
+            "Bendahara dan Humas Perizinan": {
+                namaPIC: "Alan",
+                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ALAN"
+            },
+            "Keamanan dan Perlengkapan": {
+                namaPIC: "Fadia",
+                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_FADIA"
+            }
+        };
+
         const radioInputs = document.querySelectorAll('input[name="jenisRequest"]');
         radioInputs.forEach(radio => {
             radio.addEventListener('change', () => {
@@ -245,7 +270,6 @@
             });
         });
 
-        // Tampilkan/Sembunyikan Input Lokasi jika "Peminjaman Tempat"
         perihalSelect.addEventListener('change', function() {
             if (this.value === 'Peminjaman Tempat') {
                 lokasiWrapper.classList.remove('hidden');
@@ -257,16 +281,14 @@
             }
         });
 
-        // Handle Submit Form
         requestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Ambil semua data
             savedData = {
                 nama: document.getElementById('nama').value,
                 wa: document.getElementById('wa').value,
                 jenisRequest: document.querySelector('input[name="jenisRequest"]:checked').value,
-                bidang: document.getElementById('bidang').value,
+                divisi: document.getElementById('divisi').value,
                 perihal: document.getElementById('perihal').value,
                 lokasi: document.getElementById('lokasi').value,
                 tujuan: document.getElementById('tujuan').value,
@@ -275,7 +297,9 @@
                 deadline: document.getElementById('deadline').value
             };
 
-            // Loading state
+            // Ambil data konfigurasi PIC berdasarkan divisi yang dipilih
+            const selectedPIC = PIC_CONFIG[savedData.divisi];
+
             submitBtn.disabled = true;
             btnText.innerText = "Sedang Mengirim...";
             btnIcon.setAttribute('data-lucide', 'loader-2');
@@ -283,26 +307,30 @@
             lucide.createIcons();
 
             try {
-                // URL Google Apps Script Anda (Tetap sama)
-                const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyUE_BCEGzgFvYhOp3l64J4sHDdRqsyv3vZD0kZFhMVCsngocv28QzLjU-j7EAEiZc/exec";
-
-                await fetch(SCRIPT_URL, {
+                // Tembak API ke Spreadsheet yang spesifik milik PIC divisi tersebut
+                await fetch(selectedPIC.scriptUrl, {
                     method: "POST",
                     mode: "no-cors",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(savedData)
                 });
 
-                // Tampilkan sukses
+                // Generate Tombol WA Dinamis hanya untuk PIC tersebut
+                cpContainer.innerHTML = `
+                    <button onclick="sendWA('${selectedPIC.namaPIC}', '${selectedPIC.nomorWA}')" class="w-full h-14 bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 rounded-2xl shadow-lg shadow-green-100 text-lg font-bold text-white transition-transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> Chat PIC: ${selectedPIC.namaPIC}
+                    </button>
+                `;
+
                 formScreen.classList.add('hidden');
                 successScreen.classList.remove('hidden');
+                lucide.createIcons();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
                 console.error("Error:", error);
                 alert("Gagal mengirim data. Cek koneksi internetmu.");
             } finally {
-                // Reset Button
                 submitBtn.disabled = false;
                 btnText.innerText = "Kirim Request Sekarang";
                 btnIcon.setAttribute('data-lucide', 'send');
@@ -311,25 +339,23 @@
             }
         });
 
-        // Format Tanggal ke Indo
         const formatDateIndo = (dateStr) => {
             if (!dateStr) return "-";
             const date = new Date(dateStr);
             return date.toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' });
         };
 
-        // Handle Click WA
         function sendWA(cpName, cpNumber) {
             const lokasiText = savedData.perihal === "Peminjaman Tempat" ? `di *${savedData.lokasi}*` : "";
 
-            const text = `Halo ${cpName},
+            const text = `Halo kak ${cpName},
 
 Aku *${savedData.nama}* dengan nomor wa *${savedData.wa}* mau request *${savedData.jenisRequest}*
 
-untuk acara proker bidang *${savedData.bidang}*
+dari divisi *${savedData.divisi}*
 dengan perihal/isi *${savedData.perihal}* ${lokasiText}
 dengan tujuan surat *${savedData.tujuan || "-"}*
-dan untuk *${savedData.kegiatan || "-"}*
+dan untuk kegiatan *${savedData.kegiatan || "-"}*
 
 pada tanggal *${formatDateIndo(savedData.tglPelaksanaan)}*
 dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
@@ -338,21 +364,17 @@ dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
             window.open(`https://wa.me/${cpNumber}?text=${encodedText}`, "_blank");
         }
 
-        // Reset Form
         function resetForm() {
             requestForm.reset();
             
-            // Reset custom radio
             document.querySelectorAll('.rounded-full.border-gray-300').forEach(div => {
                 div.classList.remove('border-purple-500', 'bg-purple-500');
                 div.innerHTML = '';
             });
 
-            // Sembunyikan lokasi lagi
             lokasiWrapper.classList.add('hidden');
             lokasiInput.removeAttribute('required');
 
-            // Balik ke form
             successScreen.classList.add('hidden');
             formScreen.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -360,5 +382,3 @@ dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
     </script>
 </body>
 </html>
-
-```
