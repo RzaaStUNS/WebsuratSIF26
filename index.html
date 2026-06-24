@@ -50,7 +50,7 @@
                 Form Request Surat SIF 2026 <span class="text-3xl">📝</span>
             </h1>
             <p class="text-gray-500 text-sm md:text-base">
-                Isi form Request Surat di bawah, data akan otomatis tercatat di sistem.
+                Isi form Request Surat di bawah, data otomatis masuk ke sistem.
             </p>
         </div>
 
@@ -149,9 +149,12 @@
                         </div>
 
                         <div class="space-y-1.5">
-                            <label class="text-xs font-bold text-gray-500 uppercase ml-1">Tujuan Surat</label>
-                            <input type="text" id="tujuan" placeholder="Yth. Siapa..." 
-                                class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
+                            <label class="text-xs font-bold text-gray-500 uppercase ml-1 flex items-center justify-between">
+                                Tujuan Surat 
+                                <span class="text-purple-500 text-[10px] bg-purple-50 px-2 py-0.5 rounded-full font-medium">Bisa lebih dari satu (Tekan Enter)</span>
+                            </label>
+                            <textarea id="tujuan" rows="3" placeholder="Yth. Tujuan 1&#10;Yth. Tujuan 2&#10;Yth. Tujuan 3..." 
+                                class="w-full p-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all resize-y"></textarea>
                         </div>
                     </div>
 
@@ -159,7 +162,7 @@
                         <h3 class="text-lg font-bold text-blue-500 flex items-center gap-2 border-b border-blue-100 pb-2">
                             <i data-lucide="calendar" class="w-5 h-5"></i> Waktu Penting
                         </h3>
-                        <div class="space-y-1.5">
+                        <div class="space-y-1.5 w-full md:w-1/2">
                             <label class="text-xs font-bold text-red-500 uppercase ml-1">Deadline Request (H-1) <span class="text-red-500">*</span></label>
                             <input type="date" id="deadline" required 
                                 class="w-full h-12 px-4 bg-white border border-red-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 rounded-xl outline-none transition-all cursor-pointer">
@@ -221,17 +224,17 @@
             "Proposal, LPJ dan Absensi": {
                 namaPIC: "Abimanyu",
                 nomorWA: "6282133751840",
-                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ABIMANYU"
+                scriptUrl: "https://script.google.com/macros/s/AKfycbyD8gsqbmQOkr6Ow_33X5nDSmQ9P0VVnBzhIcn7EukAmoOzhoYECzHPWaamq9GPp_YI/exec"
             },
             "PDD dan Pubkon": {
                 namaPIC: "Nabhan",
-                nomorWA: "628xxxxxxxxx", 
-                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_NABHAN"
+                nomorWA: "62895422636194", 
+                scriptUrl: "https://script.google.com/macros/s/AKfycbwP40GfZhp0l6womxy4pYjHhrgLncZQdnU9qghlvk-dITp78tt2WRat1Q7WJ_nRBvsHxA/exec"
             },
             "Acara dan Danus Bazar": {
                 namaPIC: "Andin",
                 nomorWA: "628xxxxxxxxx", 
-                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ANDIN"
+                scriptUrl: "https://script.google.com/macros/s/AKfycbwy7vye2IlEm8WAIhFWrvy8qF5-UiJg1a8DJ9t_xA5NFewplw3M5aYBjU153Y-KZIkLPA/exec"
             },
             "Sponsorship dan Konsumsi": {
                 namaPIC: "Alya",
@@ -268,7 +271,6 @@
 
         // Tampilkan input dinamis berdasarkan Perihal
         perihalSelect.addEventListener('change', function() {
-            // Reset state dulu
             lokasiWrapper.classList.add('hidden');
             lokasiInput.removeAttribute('required');
             lokasiInput.value = '';
@@ -277,7 +279,6 @@
             lainnyaInput.removeAttribute('required');
             lainnyaInput.value = '';
 
-            // Tampilkan sesuai pilihan
             if (this.value === 'Peminjaman Tempat') {
                 lokasiWrapper.classList.remove('hidden');
                 lokasiInput.setAttribute('required', 'true');
@@ -290,10 +291,20 @@
         requestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Tangkap nilai perihal (jika 'Lainnya', ambil dari input teks)
+            // Tangkap nilai perihal
             let perihalValue = document.getElementById('perihal').value;
             if (perihalValue === 'Lainnya') {
                 perihalValue = document.getElementById('lainnyaInput').value;
+            }
+
+            // Tangkap dan pecah input Tujuan menjadi Array
+            let rawTujuan = document.getElementById('tujuan').value;
+            // Pisahkan berdasarkan Enter, hilangkan spasi depan-belakang, lalu filter yang kosong
+            let tujuanArray = rawTujuan.split('\n').map(item => item.trim()).filter(item => item !== "");
+            
+            // Jika kosong sama sekali, beri nilai default
+            if(tujuanArray.length === 0) {
+                tujuanArray = ["-"];
             }
 
             savedData = {
@@ -303,7 +314,7 @@
                 divisi: document.getElementById('divisi').value,
                 perihal: perihalValue,
                 lokasi: document.getElementById('lokasi').value,
-                tujuan: document.getElementById('tujuan').value,
+                tujuan: tujuanArray, // <-- Di sini dikirim sebagai Array
                 deadline: document.getElementById('deadline').value
             };
 
@@ -355,6 +366,9 @@
 
         function sendWA(cpName, cpNumber) {
             const lokasiText = document.getElementById('perihal').value === "Peminjaman Tempat" ? `di *${savedData.lokasi}*` : "";
+            
+            // Format list tujuan untuk di WA
+            const tujuanTextList = savedData.tujuan.map(t => `- ${t}`).join('\n');
 
             const text = `Halo kak ${cpName},
 
@@ -362,9 +376,11 @@ Aku *${savedData.nama}* dengan nomor wa *${savedData.wa}* mau request *${savedDa
 
 dari divisi *${savedData.divisi}*
 dengan perihal/isi *${savedData.perihal}* ${lokasiText}
-dengan tujuan surat *${savedData.tujuan || "-"}*
 
-dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
+dengan tujuan surat:
+${tujuanTextList}
+
+maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
 
             const encodedText = encodeURIComponent(text);
             window.open(`https://wa.me/${cpNumber}?text=${encodedText}`, "_blank");
