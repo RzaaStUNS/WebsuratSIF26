@@ -110,7 +110,7 @@
                                 <label class="text-xs font-bold text-gray-500 uppercase ml-1">Dari Divisi Apa? <span class="text-red-500">*</span></label>
                                 <select id="divisi" required class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all appearance-none cursor-pointer">
                                     <option value="" disabled selected>Pilih Divisi...</option>
-                                    <option value="Proposal SV, LPJ, dan Absensi">Proposal SV, LPJ, dan Absensi</option>
+                                    <option value="Proposal, LPJ dan Absensi">Proposal, LPJ dan Absensi</option>
                                     <option value="PDD dan Pubkon">PDD dan Pubkon</option>
                                     <option value="Acara dan Danus Bazar">Acara dan Danus Bazar</option>
                                     <option value="Sponsorship dan Konsumsi">Sponsorship dan Konsumsi</option>
@@ -127,7 +127,7 @@
                                     <option value="Peminjaman Barang/Alat">Peminjaman Barang/Alat</option>
                                     <option value="Undangan">Undangan</option>
                                     <option value="SIK (Surat Izin Kegiatan)">SIK (Surat Izin Kegiatan)</option>
-                                    <option value="Lainnya">Lainnya</option>
+                                    <option value="Lainnya">Lainnya...</option>
                                 </select>
                             </div>
                         </div>
@@ -140,17 +140,18 @@
                                 class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
                         </div>
 
-                        <div class="grid md:grid-cols-2 gap-5">
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">Tujuan Surat</label>
-                                <input type="text" id="tujuan" placeholder="Yth. Siapa..." 
-                                    class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
-                            </div>
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">Nama Kegiatan/Acara</label>
-                                <input type="text" id="kegiatan" placeholder="Nama Acara..." 
-                                    class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
-                            </div>
+                        <div id="lainnyaWrapper" class="space-y-1.5 hidden animate-slide-down">
+                            <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
+                                <i data-lucide="pen-tool" class="w-4 h-4"></i> Tuliskan Perihal Lainnya <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="lainnyaInput" placeholder="Misal: Surat Keterangan Aktif, Permohonan Dana, dll." 
+                                class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-gray-500 uppercase ml-1">Tujuan Surat</label>
+                            <input type="text" id="tujuan" placeholder="Yth. Siapa..." 
+                                class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
                         </div>
                     </div>
 
@@ -158,17 +159,10 @@
                         <h3 class="text-lg font-bold text-blue-500 flex items-center gap-2 border-b border-blue-100 pb-2">
                             <i data-lucide="calendar" class="w-5 h-5"></i> Waktu Penting
                         </h3>
-                        <div class="grid md:grid-cols-2 gap-5">
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-bold text-gray-500 uppercase ml-1">Tanggal Pelaksanaan</label>
-                                <input type="date" id="tglPelaksanaan" 
-                                    class="w-full h-12 px-4 bg-white border border-gray-200 focus:border-blue-300 focus:ring-2 focus:ring-blue-100 rounded-xl outline-none transition-all cursor-pointer">
-                            </div>
-                            <div class="space-y-1.5">
-                                <label class="text-xs font-bold text-red-500 uppercase ml-1">Deadline Request (H-1) <span class="text-red-500">*</span></label>
-                                <input type="date" id="deadline" required 
-                                    class="w-full h-12 px-4 bg-white border border-red-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 rounded-xl outline-none transition-all cursor-pointer">
-                            </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-red-500 uppercase ml-1">Deadline Request (H-1) <span class="text-red-500">*</span></label>
+                            <input type="date" id="deadline" required 
+                                class="w-full h-12 px-4 bg-white border border-red-200 focus:border-red-400 focus:ring-2 focus:ring-red-100 rounded-xl outline-none transition-all cursor-pointer">
                         </div>
                     </div>
 
@@ -191,10 +185,8 @@
                     Data kamu sudah masuk ke sistem. Silakan <strong>klik tombol di bawah</strong> untuk konfirmasi ke PIC Divisimu via WhatsApp.
                 </p>
 
-                <!-- Container untuk tombol WA dinamis -->
                 <div id="cpContainer" class="w-full max-w-sm mb-8 flex justify-center">
-                    <!-- Tombol akan di-inject pakai JavaScript -->
-                </div>
+                    </div>
 
                 <button onclick="resetForm()" class="text-gray-500 hover:text-pink-500 font-medium transition-colors hover:underline">
                     &larr; Buat Request Lain
@@ -210,9 +202,13 @@
         const formScreen = document.getElementById('formScreen');
         const successScreen = document.getElementById('successScreen');
         const requestForm = document.getElementById('requestForm');
+        
         const perihalSelect = document.getElementById('perihal');
         const lokasiWrapper = document.getElementById('lokasiWrapper');
         const lokasiInput = document.getElementById('lokasi');
+        const lainnyaWrapper = document.getElementById('lainnyaWrapper');
+        const lainnyaInput = document.getElementById('lainnyaInput');
+        
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
         const btnIcon = document.getElementById('btnIcon');
@@ -221,40 +217,40 @@
         let savedData = {};
 
         // KONFIGURASI ROUTING PER DIVISI
-        // Silakan ganti URL SCRIPT dan NOMOR WA di bawah ini nanti
         const PIC_CONFIG = {
-            "Proposal SV, LPJ, dan Absensi": {
+            "Proposal, LPJ dan Absensi": {
                 namaPIC: "Abimanyu",
                 nomorWA: "6282133751840",
-                scriptUrl: "https://script.google.com/macros/s/AKfycby79z_6DsygEsGKZxh7oUUql9X2XkgFs3c59ID_A4uk4ojQMKNnt98NsEXDYVNczXj4/exec"
+                scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ABIMANYU"
             },
             "PDD dan Pubkon": {
                 namaPIC: "Nabhan",
-                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                nomorWA: "628xxxxxxxxx", 
                 scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_NABHAN"
             },
             "Acara dan Danus Bazar": {
                 namaPIC: "Andin",
-                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                nomorWA: "628xxxxxxxxx", 
                 scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ANDIN"
             },
             "Sponsorship dan Konsumsi": {
                 namaPIC: "Alya",
-                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                nomorWA: "628xxxxxxxxx", 
                 scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ALYA"
             },
             "Bendahara dan Humas Perizinan": {
                 namaPIC: "Alan",
-                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                nomorWA: "628xxxxxxxxx", 
                 scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_ALAN"
             },
             "Keamanan dan Perlengkapan": {
                 namaPIC: "Fadia",
-                nomorWA: "628xxxxxxxxx", // Isi dengan 628...
+                nomorWA: "628xxxxxxxxx", 
                 scriptUrl: "URL_APPS_SCRIPT_SPREADSHEET_FADIA"
             }
         };
 
+        // Radio Button Styling
         const radioInputs = document.querySelectorAll('input[name="jenisRequest"]');
         radioInputs.forEach(radio => {
             radio.addEventListener('change', () => {
@@ -270,34 +266,47 @@
             });
         });
 
+        // Tampilkan input dinamis berdasarkan Perihal
         perihalSelect.addEventListener('change', function() {
+            // Reset state dulu
+            lokasiWrapper.classList.add('hidden');
+            lokasiInput.removeAttribute('required');
+            lokasiInput.value = '';
+            
+            lainnyaWrapper.classList.add('hidden');
+            lainnyaInput.removeAttribute('required');
+            lainnyaInput.value = '';
+
+            // Tampilkan sesuai pilihan
             if (this.value === 'Peminjaman Tempat') {
                 lokasiWrapper.classList.remove('hidden');
                 lokasiInput.setAttribute('required', 'true');
-            } else {
-                lokasiWrapper.classList.add('hidden');
-                lokasiInput.removeAttribute('required');
-                lokasiInput.value = '';
+            } else if (this.value === 'Lainnya') {
+                lainnyaWrapper.classList.remove('hidden');
+                lainnyaInput.setAttribute('required', 'true');
             }
         });
 
         requestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
+            // Tangkap nilai perihal (jika 'Lainnya', ambil dari input teks)
+            let perihalValue = document.getElementById('perihal').value;
+            if (perihalValue === 'Lainnya') {
+                perihalValue = document.getElementById('lainnyaInput').value;
+            }
+
             savedData = {
                 nama: document.getElementById('nama').value,
                 wa: document.getElementById('wa').value,
                 jenisRequest: document.querySelector('input[name="jenisRequest"]:checked').value,
                 divisi: document.getElementById('divisi').value,
-                perihal: document.getElementById('perihal').value,
+                perihal: perihalValue,
                 lokasi: document.getElementById('lokasi').value,
                 tujuan: document.getElementById('tujuan').value,
-                kegiatan: document.getElementById('kegiatan').value,
-                tglPelaksanaan: document.getElementById('tglPelaksanaan').value,
                 deadline: document.getElementById('deadline').value
             };
 
-            // Ambil data konfigurasi PIC berdasarkan divisi yang dipilih
             const selectedPIC = PIC_CONFIG[savedData.divisi];
 
             submitBtn.disabled = true;
@@ -307,7 +316,6 @@
             lucide.createIcons();
 
             try {
-                // Tembak API ke Spreadsheet yang spesifik milik PIC divisi tersebut
                 await fetch(selectedPIC.scriptUrl, {
                     method: "POST",
                     mode: "no-cors",
@@ -315,7 +323,7 @@
                     body: JSON.stringify(savedData)
                 });
 
-                // Generate Tombol WA Dinamis hanya untuk PIC tersebut
+                // Generate Tombol WA Dinamis
                 cpContainer.innerHTML = `
                     <button onclick="sendWA('${selectedPIC.namaPIC}', '${selectedPIC.nomorWA}')" class="w-full h-14 bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 rounded-2xl shadow-lg shadow-green-100 text-lg font-bold text-white transition-transform hover:scale-[1.02] flex items-center justify-center gap-2">
                         <i data-lucide="message-circle" class="w-5 h-5"></i> Chat PIC: ${selectedPIC.namaPIC}
@@ -346,7 +354,7 @@
         };
 
         function sendWA(cpName, cpNumber) {
-            const lokasiText = savedData.perihal === "Peminjaman Tempat" ? `di *${savedData.lokasi}*` : "";
+            const lokasiText = document.getElementById('perihal').value === "Peminjaman Tempat" ? `di *${savedData.lokasi}*` : "";
 
             const text = `Halo kak ${cpName},
 
@@ -355,9 +363,7 @@ Aku *${savedData.nama}* dengan nomor wa *${savedData.wa}* mau request *${savedDa
 dari divisi *${savedData.divisi}*
 dengan perihal/isi *${savedData.perihal}* ${lokasiText}
 dengan tujuan surat *${savedData.tujuan || "-"}*
-dan untuk kegiatan *${savedData.kegiatan || "-"}*
 
-pada tanggal *${formatDateIndo(savedData.tglPelaksanaan)}*
 dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
 
             const encodedText = encodeURIComponent(text);
@@ -374,6 +380,9 @@ dengan maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
 
             lokasiWrapper.classList.add('hidden');
             lokasiInput.removeAttribute('required');
+            
+            lainnyaWrapper.classList.add('hidden');
+            lainnyaInput.removeAttribute('required');
 
             successScreen.classList.add('hidden');
             formScreen.classList.remove('hidden');
