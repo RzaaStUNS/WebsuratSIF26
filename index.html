@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Request Surat SIF 2026</title>
-    
     <link rel="icon" type="image/x-icon" href="./favicon.ico">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -36,9 +33,6 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 min-h-screen text-gray-800 p-4 sm:p-8">
@@ -141,11 +135,12 @@
                                 </div>
                             </div>
 
+                            <!-- DYNAMIC FIELDS START HERE -->
                             <div id="lokasiWrapper" class="space-y-1.5 hidden animate-slide-down">
                                 <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
                                     <i data-lucide="map-pin" class="w-4 h-4"></i> Nama Tempat/Ruangan <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="lokasi" placeholder="Misal: Ruang Lab Jaringan, Teaching Factory, dll." 
+                                <input type="text" id="lokasi" placeholder="Misal: Ruang Lab Jaringan, dll." 
                                     class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
                             </div>
 
@@ -153,24 +148,48 @@
                                 <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
                                     <i data-lucide="box" class="w-4 h-4"></i> Nama Barang/Alat <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="barangInput" placeholder="Misal: Proyektor, Kabel Roll, HT, dll." 
+                                <input type="text" id="barangInput" placeholder="Misal: Proyektor, HT, dll." 
                                     class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
+                            </div>
+
+                            <div id="kegiatanWrapper" class="space-y-1.5 hidden animate-slide-down">
+                                <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
+                                    <i data-lucide="activity" class="w-4 h-4"></i> Untuk Kegiatan Apa? <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" id="kegiatanInput" placeholder="Misal: Rapat Pleno, Pelatihan IT, dll." 
+                                    class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
+                            </div>
+
+                            <div id="waktuPinjamWrapper" class="grid md:grid-cols-2 gap-5 hidden animate-slide-down">
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-4 h-4"></i> Dipinjam Kapan? <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" id="waktuPinjamInput" class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all cursor-pointer">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
+                                        <i data-lucide="clock" class="w-4 h-4"></i> Dikembalikan Kapan? <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="date" id="waktuKembaliInput" class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all cursor-pointer">
+                                </div>
                             </div>
 
                             <div id="lainnyaWrapper" class="space-y-1.5 hidden animate-slide-down">
                                 <label class="text-xs font-bold text-purple-600 uppercase ml-1 flex items-center gap-1">
                                     <i data-lucide="pen-tool" class="w-4 h-4"></i> Tuliskan Perihal Lainnya <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="lainnyaInput" placeholder="Misal: Surat Keterangan Aktif, Permohonan Dana, dll." 
+                                <input type="text" id="lainnyaInput" placeholder="Misal: Surat Keterangan Aktif, dll." 
                                     class="w-full h-12 px-4 bg-purple-50/50 border border-purple-200 focus:border-purple-400 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all">
                             </div>
+                            <!-- DYNAMIC FIELDS END HERE -->
 
                             <div class="space-y-1.5">
                                 <label class="text-xs font-bold text-gray-500 uppercase ml-1 flex items-center justify-between">
                                     Tujuan Surat 
                                     <span class="text-purple-500 text-[10px] bg-purple-50 px-2 py-0.5 rounded-full font-medium">Bisa lebih dari satu (Tekan Enter)</span>
                                 </label>
-                                <textarea id="tujuan" rows="3" placeholder="Yth. Tujuan 1&#10;Yth. Tujuan 2&#10;Yth. Tujuan 3..." 
+                                <textarea id="tujuan" rows="3" placeholder="Yth. Tujuan 1&#10;Yth. Tujuan 2..." 
                                     class="w-full p-4 bg-white border border-gray-200 focus:border-purple-300 focus:ring-2 focus:ring-purple-100 rounded-xl outline-none transition-all resize-y"></textarea>
                             </div>
                         </div>
@@ -205,10 +224,7 @@
                 <p class="text-gray-600 max-w-md mb-8">
                     Data kamu sudah masuk ke sistem. Silakan <strong>klik tombol di bawah</strong> untuk konfirmasi ke PIC Divisimu via WhatsApp.
                 </p>
-
-                <div id="cpContainer" class="w-full max-w-sm mb-8 flex justify-center">
-                    </div>
-
+                <div id="cpContainer" class="w-full max-w-sm mb-8 flex justify-center"></div>
                 <button onclick="resetForm()" class="text-gray-500 hover:text-pink-500 font-medium transition-colors hover:underline">
                     &larr; Buat Request Lain
                 </button>
@@ -232,6 +248,11 @@
         const lokasiInput = document.getElementById('lokasi');
         const barangWrapper = document.getElementById('barangWrapper');
         const barangInput = document.getElementById('barangInput');
+        const kegiatanWrapper = document.getElementById('kegiatanWrapper');
+        const kegiatanInput = document.getElementById('kegiatanInput');
+        const waktuPinjamWrapper = document.getElementById('waktuPinjamWrapper');
+        const waktuPinjamInput = document.getElementById('waktuPinjamInput');
+        const waktuKembaliInput = document.getElementById('waktuKembaliInput');
         const lainnyaWrapper = document.getElementById('lainnyaWrapper');
         const lainnyaInput = document.getElementById('lainnyaInput');
         
@@ -242,36 +263,14 @@
 
         let savedData = {};
 
-        // KONFIGURASI ROUTING PER DIVISI
         const PIC_CONFIG = {
-            "PDD dan Pubkon": {
-                namaPIC: "Nabhan",
-                nomorWA: "62895422636194", 
-                scriptUrl: "https://script.google.com/macros/s/AKfycbwP40GfZhp0l6womxy4pYjHhrgLncZQdnU9qghlvk-dITp78tt2WRat1Q7WJ_nRBvsHxA/exec"
-            },
-            "Acara dan Danus Bazar": {
-                namaPIC: "Andin",
-                nomorWA: "6282234460802", 
-                scriptUrl: "https://script.google.com/macros/s/AKfycbwDjTSp8kkX9ysOLYl9Jgp-RXyCWwHK9mlrZy_llXQhyZhqatGcRXy0h9d8kbM2NaMqkg/exec"
-            },
-            "Sponsorship dan Konsumsi": {
-                namaPIC: "Alya",
-                nomorWA: "6289669743721", 
-                scriptUrl: "https://script.google.com/macros/s/AKfycbwxQ8LyQFCLJzRW0cHd8cf79NCOcyNWFqkMIUe2G8Gnu1oi6ZeyShVVvsrIpEmdjsJoLQ/exec"
-            },
-            "Bendahara dan Humas Perizinan": {
-                namaPIC: "Alan",
-                nomorWA: "6282133837748", 
-                scriptUrl: "https://script.google.com/macros/s/AKfycbwdHuzQK-iHW1PO_v9p3ZVqb5G5l-b-E17MA248djm9Uf_WQjXIWDpCPKsopKMqUVn9/exec"
-            },
-            "Keamanan dan Perlengkapan": {
-                namaPIC: "Fadia",
-                nomorWA: "6281933740554", 
-                scriptUrl: "https://script.google.com/macros/s/AKfycbx-ox7iUkkqYUfYRA-nxH3vaPm-2XzpNpAGpTvRAodkw2VeXyxgs0VDf1T8Ry7XF8Dp/exec"
-            }
+            "PDD dan Pubkon": { namaPIC: "Nabhan", nomorWA: "62895422636194", scriptUrl: "https://script.google.com/macros/s/AKfycbwP40GfZhp0l6womxy4pYjHhrgLncZQdnU9qghlvk-dITp78tt2WRat1Q7WJ_nRBvsHxA/exec" },
+            "Acara dan Danus Bazar": { namaPIC: "Andin", nomorWA: "6282234460802", scriptUrl: "https://script.google.com/macros/s/AKfycbwDjTSp8kkX9ysOLYl9Jgp-RXyCWwHK9mlrZy_llXQhyZhqatGcRXy0h9d8kbM2NaMqkg/exec" },
+            "Sponsorship dan Konsumsi": { namaPIC: "Alya", nomorWA: "6289669743721", scriptUrl: "https://script.google.com/macros/s/AKfycbwxQ8LyQFCLJzRW0cHd8cf79NCOcyNWFqkMIUe2G8Gnu1oi6ZeyShVVvsrIpEmdjsJoLQ/exec" },
+            "Bendahara dan Humas Perizinan": { namaPIC: "Alan", nomorWA: "6282133837748", scriptUrl: "https://script.google.com/macros/s/AKfycbwdHuzQK-iHW1PO_v9p3ZVqb5G5l-b-E17MA248djm9Uf_WQjXIWDpCPKsopKMqUVn9/exec" },
+            "Keamanan dan Perlengkapan": { namaPIC: "Fadia", nomorWA: "6281933740554", scriptUrl: "https://script.google.com/macros/s/AKfycbx-ox7iUkkqYUfYRA-nxH3vaPm-2XzpNpAGpTvRAodkw2VeXyxgs0VDf1T8Ry7XF8Dp/exec" }
         };
 
-        // Radio Button Styling
         const radioInputs = document.querySelectorAll('input[name="jenisRequest"]');
         radioInputs.forEach(radio => {
             radio.addEventListener('change', () => {
@@ -287,7 +286,6 @@
             });
         });
 
-        // LOGIKA KATEGORI SURAT (Redirect / Show Form)
         kategoriSurat.addEventListener('change', function() {
             if (this.value === 'ProposalAbsensi') {
                 window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSeMv1ZzIPKBamu0_FFOU-8mkJdteFyHp2-JyRTkwhNIMbdisw/viewform?usp=dialog";
@@ -296,49 +294,45 @@
             }
         });
 
-        // Tampilkan input dinamis berdasarkan Perihal
         perihalSelect.addEventListener('change', function() {
-            lokasiWrapper.classList.add('hidden');
-            lokasiInput.removeAttribute('required');
-            lokasiInput.value = '';
-            
-            barangWrapper.classList.add('hidden');
-            barangInput.removeAttribute('required');
-            barangInput.value = '';
-            
-            lainnyaWrapper.classList.add('hidden');
-            lainnyaInput.removeAttribute('required');
-            lainnyaInput.value = '';
+            // Sembunyikan & Hapus wajib isi pada semua dinamic field dulu
+            [lokasiWrapper, barangWrapper, kegiatanWrapper, waktuPinjamWrapper, lainnyaWrapper].forEach(w => w.classList.add('hidden'));
+            [lokasiInput, barangInput, kegiatanInput, waktuPinjamInput, waktuKembaliInput, lainnyaInput].forEach(i => {
+                i.removeAttribute('required');
+                i.value = '';
+            });
 
             if (this.value === 'Peminjaman Tempat') {
-                lokasiWrapper.classList.remove('hidden');
-                lokasiInput.setAttribute('required', 'true');
+                lokasiWrapper.classList.remove('hidden'); lokasiInput.setAttribute('required', 'true');
+                kegiatanWrapper.classList.remove('hidden'); kegiatanInput.setAttribute('required', 'true');
             } else if (this.value === 'Peminjaman Barang/Alat') {
-                barangWrapper.classList.remove('hidden');
-                barangInput.setAttribute('required', 'true');
+                barangWrapper.classList.remove('hidden'); barangInput.setAttribute('required', 'true');
+                kegiatanWrapper.classList.remove('hidden'); kegiatanInput.setAttribute('required', 'true');
+                waktuPinjamWrapper.classList.remove('hidden'); 
+                waktuPinjamInput.setAttribute('required', 'true');
+                waktuKembaliInput.setAttribute('required', 'true');
             } else if (this.value === 'Lainnya') {
-                lainnyaWrapper.classList.remove('hidden');
-                lainnyaInput.setAttribute('required', 'true');
+                lainnyaWrapper.classList.remove('hidden'); lainnyaInput.setAttribute('required', 'true');
             }
         });
 
         requestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            // Tangkap nilai perihal (Gabungkan kalau pilih Barang atau Lainnya)
-            let perihalValue = document.getElementById('perihal').value;
+            let perihalValue = perihalSelect.value;
+            let detailPinjaman = "-";
+            
             if (perihalValue === 'Lainnya') {
-                perihalValue = document.getElementById('lainnyaInput').value;
+                perihalValue = lainnyaInput.value;
+            } else if (perihalValue === 'Peminjaman Tempat') {
+                detailPinjaman = lokasiInput.value;
             } else if (perihalValue === 'Peminjaman Barang/Alat') {
-                perihalValue = "Peminjaman Barang/Alat: " + document.getElementById('barangInput').value;
+                detailPinjaman = barangInput.value;
             }
 
-            // Tangkap dan pecah input Tujuan menjadi Array
             let rawTujuan = document.getElementById('tujuan').value;
             let tujuanArray = rawTujuan.split('\n').map(item => item.trim()).filter(item => item !== "");
-            if(tujuanArray.length === 0) {
-                tujuanArray = ["-"];
-            }
+            if(tujuanArray.length === 0) tujuanArray = ["-"];
 
             savedData = {
                 nama: document.getElementById('nama').value,
@@ -346,7 +340,10 @@
                 jenisRequest: document.querySelector('input[name="jenisRequest"]:checked').value,
                 divisi: document.getElementById('divisi').value,
                 perihal: perihalValue,
-                lokasi: document.getElementById('lokasi').value,
+                detailPinjaman: detailPinjaman,
+                kegiatan: kegiatanInput.value || "-",
+                waktuPinjam: waktuPinjamInput.value || "-",
+                waktuKembali: waktuKembaliInput.value || "-",
                 tujuan: tujuanArray,
                 deadline: document.getElementById('deadline').value
             };
@@ -367,7 +364,6 @@
                     body: JSON.stringify(savedData)
                 });
 
-                // Generate Tombol WA Dinamis
                 cpContainer.innerHTML = `
                     <button onclick="sendWA('${selectedPIC.namaPIC}', '${selectedPIC.nomorWA}')" class="w-full h-14 bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 rounded-2xl shadow-lg shadow-green-100 text-lg font-bold text-white transition-transform hover:scale-[1.02] flex items-center justify-center gap-2">
                         <i data-lucide="message-circle" class="w-5 h-5"></i> Chat PIC: ${selectedPIC.namaPIC}
@@ -380,7 +376,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
             } catch (error) {
-                console.error("Error:", error);
                 alert("Gagal mengirim data. Cek koneksi internetmu.");
             } finally {
                 submitBtn.disabled = false;
@@ -392,15 +387,19 @@
         });
 
         const formatDateIndo = (dateStr) => {
-            if (!dateStr) return "-";
+            if (!dateStr || dateStr === "-") return "-";
             const date = new Date(dateStr);
             return date.toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' });
         };
 
         function sendWA(cpName, cpNumber) {
-            const lokasiText = document.getElementById('perihal').value === "Peminjaman Tempat" ? `di *${savedData.lokasi}*` : "";
-            
-            // Format list tujuan untuk di WA
+            let tambahanInfo = "";
+            if(savedData.perihal === "Peminjaman Tempat") {
+                tambahanInfo = `\nLokasi Ruangan: *${savedData.detailPinjaman}*\nUntuk Kegiatan: *${savedData.kegiatan}*`;
+            } else if(savedData.perihal === "Peminjaman Barang/Alat") {
+                tambahanInfo = `\nNama Barang/Alat: *${savedData.detailPinjaman}*\nUntuk Kegiatan: *${savedData.kegiatan}*\nJadwal Pinjam: *${formatDateIndo(savedData.waktuPinjam)}* s/d *${formatDateIndo(savedData.waktuKembali)}*`;
+            }
+
             const tujuanTextList = savedData.tujuan.map(t => `- ${t}`).join('\n');
 
             const text = `Halo kak ${cpName},
@@ -408,7 +407,7 @@
 Aku *${savedData.nama}* dengan nomor wa *${savedData.wa}* mau request *${savedData.jenisRequest}*
 
 dari divisi *${savedData.divisi}*
-dengan perihal/isi *${savedData.perihal}* ${lokasiText}
+dengan perihal/isi *${savedData.perihal}* ${tambahanInfo}
 
 dengan tujuan surat:
 ${tujuanTextList}
@@ -421,24 +420,14 @@ maksimal tanggal surat *${formatDateIndo(savedData.deadline)}*`;
 
         function resetForm() {
             requestForm.reset();
-            
             document.querySelectorAll('.rounded-full.border-gray-300').forEach(div => {
                 div.classList.remove('border-purple-500', 'bg-purple-500');
                 div.innerHTML = '';
             });
-
             kategoriSurat.value = "";
-            detailLanjutanWrapper.classList.add('hidden');
-
-            lokasiWrapper.classList.add('hidden');
-            lokasiInput.removeAttribute('required');
+            [detailLanjutanWrapper, lokasiWrapper, barangWrapper, kegiatanWrapper, waktuPinjamWrapper, lainnyaWrapper].forEach(w => w.classList.add('hidden'));
+            [lokasiInput, barangInput, kegiatanInput, waktuPinjamInput, waktuKembaliInput, lainnyaInput].forEach(i => i.removeAttribute('required'));
             
-            barangWrapper.classList.add('hidden');
-            barangInput.removeAttribute('required');
-
-            lainnyaWrapper.classList.add('hidden');
-            lainnyaInput.removeAttribute('required');
-
             successScreen.classList.add('hidden');
             formScreen.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
