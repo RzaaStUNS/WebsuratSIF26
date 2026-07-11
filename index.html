@@ -357,8 +357,9 @@
             lucide.createIcons();
 
             try {
+                alert("Mencoba kirim ke: " + selectedPIC.scriptUrl);
                 await fetch(selectedPIC.scriptUrl, {
-                    alert("Mencoba kirim ke: " + selectedPIC.scriptUrl);
+                    
                     method: "POST",
                     mode: "no-cors",
                     headers: { "Content-Type": "text/plain;charset=utf-8" }, 
